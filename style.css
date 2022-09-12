@@ -1,0 +1,30 @@
+nav {
+  background-color: #25316d;
+}
+
+section {
+  padding-top: 6em;
+}
+
+.jumbotron {
+  background-color: #97d2ec;
+  padding-top: 5em;
+}
+
+#prototype {
+  background-color: #97d2ec;
+}
+
+footer {
+  background-color: #25316d;
+  color: #fff;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer i {
+  color: red;
+}
