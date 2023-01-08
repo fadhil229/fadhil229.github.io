@@ -10,35 +10,6 @@
   </head>
   <body>
     <!-- Nav Awal -->
-    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">PORTOFOLIO</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#aboutme">About Me</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Download My Portofolio</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#prototype">My Prototype</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#contact">Contact Me</a>
-            </li>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- Nav Akhir -->
 
     <!-- Jumbotron -->
     <section class="jumbotron text-center">
@@ -64,8 +35,13 @@
           </div>
         </div>
         <div class="row justify-content-center fs-5 text-center">
-          <div class="col-md-4">Nama saya Muhammad Fadhil Nugroho dan saya biasa dipanggil Fadhil, saat ini saya berusia 25 tahun dan saya merupakan lulusan dari Teknik Mesin di Politeknik Negeri Jakarta</div>
-          <div class="col-md-4">Saya memiliki ketertarikan yang cukup besar di bidang IT, saat ini saya menguasai bahasa HTML, CSS, dan JS</div>
+          <div class="col-md-4">
+            My name is Muhammad Fadhil Nugroho, I am usually called Fadhil, I am currently 25 years old. I am a graduate of the Heavy Equipment study program, Department of Mechanical Engineering at the Jakarta State Polytechnic
+          </div>
+          <div class="col-md-4">
+            I'm currently a front-end developer My interest in the world of programming started when I learned autodidact through YouTube and modules are written by Dunia Ilkom, I have mastered HTML 5, CSS 3, and Javascript ES6. The
+            framework I usually use is Bootstrap 5.
+          </div>
         </div>
       </div>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -149,18 +125,26 @@
         </div>
         <div class="row justify-content-center">
           <div class="col-md-8 mb-3">
-            <form>
+            <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
+              <strong>Terima Kasih!</strong> Pesan Anda, Sudah Kami Terima.
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <form name="fadhil-contact-form">
               <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" aria-describedby="emailHelp" />
+                <input type="text" class="form-control" id="name" aria-describedby="emailHelp" name="nama" />
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" />
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" />
               </div>
               <div class="mb-3">
                 <label for="Saran" class="form-label">Message</label>
-                <textarea class="form-control" id="saran" rows="3"></textarea>
+                <textarea class="form-control" id="saran" rows="3" name="pesan"></textarea>
               </div>
-              <button type="submit" class="btn btn-success">Submit</button>
+              <button type="submit" class="btn btn-success btn-kirim">Submit</button>
+              <button class="btn btn-success btn-loading d-none" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+              </button>
             </form>
           </div>
         </div>
@@ -181,5 +165,34 @@
     </footer>
     <!-- Akhir Footer -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+    <script>
+      const scriptURL = "https://script.google.com/macros/s/AKfycbwjinwpQyvdFYqIexWlew-6CkDwxJ-_xEt0PI9VmqjCwO_079NzYnKkP9ChSriHJxJJ7g/exec";
+      const form = document.forms["fadhil-contact-form"];
+
+      const btnKirim = document.querySelector(".btn-kirim");
+      const btnLoading = document.querySelector(".btn-loading");
+      const myAlert = document.querySelector(".my-alert");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        // Ketika tombol submit diklik
+        // Tampilkan tombol loading, hilangkan tombol kirim
+        btnLoading.classList.toggle("d-none");
+        btnKirim.classList.toggle("d-none");
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => {
+            // tampilkan tombol kirim, hilangkan tombol loading
+            btnLoading.classList.toggle("d-none");
+            btnKirim.classList.toggle("d-none");
+            // tampilkan alert
+            myAlert.classList.toggle("d-none");
+            // reset formnya
+            form.reset();
+            console.log("Success!", response);
+          })
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
   </body>
 </html>
